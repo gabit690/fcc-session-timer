@@ -1,0 +1,12 @@
+#display-container {
+  border-width: 10px !important;
+  border-radius: 50px;
+}
+#display-container h2 {
+  font-size: 30px;
+}
+#display-container div {
+  font-size: 45px;
+}
+
+/*# sourceMappingURL=TimerDisplay.css.map */

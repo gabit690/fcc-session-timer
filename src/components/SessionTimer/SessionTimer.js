@@ -2,6 +2,8 @@ import { Component } from "react";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import './SessionTimer.css';
+
 
 import TimerDisplay from './TimerDisplay/TimerDisplay';
 import TimerPad from './TimerPad/TimerPad';
@@ -47,9 +49,9 @@ class SessionTimer extends Component {
   
   render() {
     return (
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col">
+      <div id="timer-container" className="container-fluid w-75 border">
+        <div className="row bg-info">
+          <div className="col-sm-8 bg-danger">
             <TimerDisplay 
               title={this.state.sessionType} 
               time={this.state.displayTime}
@@ -79,7 +81,7 @@ class SessionTimer extends Component {
               }
             />
           </div>
-          <div className="col">
+          {/* <div className="col">
             <TimerConfig 
               active={this.state.timerActive}
               label={"break-label"}
@@ -122,7 +124,7 @@ class SessionTimer extends Component {
               }
               configValue={this.state.sessionLength}
             />
-          </div>
+          </div> */}
         </div>
       </div>
     );

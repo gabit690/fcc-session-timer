@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.js';
 
-import Button from '../../commons/Button';
+import Button from '../../commons/Button/Button';
 
 const TimerPad = (props) => {
 
