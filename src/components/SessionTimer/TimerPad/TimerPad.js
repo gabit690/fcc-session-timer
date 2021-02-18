@@ -4,31 +4,34 @@ import 'bootstrap/dist/js/bootstrap.bundle.js';
 import Button from '../../commons/Button';
 
 const TimerPad = (props) => {
+
+  const { active, playButton, pauseButton, resetButton } = props;
+
   return (
     <div className="container-fluid">
       <div className="row">
         <div className="col">
           <Button 
-            id={props.playId} 
-            action={props.playAction} 
-            value={props.playIcon} 
-            disabled={!props.active} 
+            id={playButton.id} 
+            action={playButton.action} 
+            value={playButton.icon} 
+            disabled={!active} 
           />
         </div>
         <div className="col">
           <Button 
-            id={props.pauseId} 
-            action={props.pauseAction} 
-            value={props.pauseIcon} 
-            disabled={!props.active} 
+            id={pauseButton.id} 
+            action={pauseButton.action} 
+            value={pauseButton.icon} 
+            disabled={!active} 
           />
         </div>
         <div className="col">
           <Button 
-            id={props.resetId} 
-            action={props.resetAction} 
-            value={props.resetIcon} 
-            disabled={!props.active} 
+            id={resetButton.id} 
+            action={resetButton.action} 
+            value={resetButton.icon} 
+            disabled={!active} 
           />
         </div>
       </div>

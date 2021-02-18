@@ -1,7 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-
 import './App.css';
+
+import Contact from './components/Contact/Contact';
 
 function App() {
   return (
@@ -13,7 +14,9 @@ function App() {
      justify-content-center 
      align-items-center"
     >
-
+      <h1>25 + 5 Clock</h1>
+      
+      <Contact />
     </div>
   );
 }

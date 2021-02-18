@@ -11,21 +11,21 @@ const TimerConfig = (props) => {
       <div className="row">
         <div className="col">
           <Button 
-            id={props.decrementId} 
-            action={props.decrementAction} 
-            value={props.decrementIcon} 
-            disabled={props.disabled} 
+            id={props.incrementButton.id} 
+            action={props.incrementButton.action} 
+            value={props.incrementButton.icon} 
+            disabled={props.active} 
           />
         </div>
         <div className="col">
           {props.configValue}
         </div>
         <div className="col">
-          <Button 
-            id={props.incrementId} 
-            action={props.incrementAction} 
-            value={props.incrementIcon} 
-            disabled={props.disabled} 
+        <Button 
+            id={props.decrementButton.id} 
+            action={props.decrementButton.action} 
+            value={props.decrementButton.icon} 
+            disabled={props.active} 
           />
         </div>
       </div>
