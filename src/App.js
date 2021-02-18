@@ -1,9 +1,18 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
+    <div className="
+     App
+     container-fluid
+     bg-secondary 
+     d-flex 
+     justify-content-center 
+     align-items-center"
+    >
 
     </div>
   );
