@@ -18,7 +18,7 @@ class SessionTimer extends Component {
       displayTime: "25:00",
       breakLength: 5,
       sessionLength: 25,
-      timerActive: false
+      timerActive: true//Arranca en false
     };
     this.handlePlay = this.handlePlay.bind(this);
     this.handlePause = this.handlePause.bind(this);
@@ -62,21 +62,21 @@ class SessionTimer extends Component {
                 {
                   id: "start_stop",
                   action: this.handlePlay,
-                  icon: "P"
+                  icon: <i class="bi bi-play-fill"></i>
                 }
               }
               pauseButton={
                 {
                   id: "pause",
                   action: this.handlePause,
-                  icon: "||"
+                  icon: <i class="bi bi-pause-fill"></i>
                 }
               }
               resetButton={
                 {
                   id: "reset",
                   action: this.handleReset,
-                  icon: "G"
+                  icon: <i class="bi bi-arrow-counterclockwise"></i>
                 }
               }
             />
