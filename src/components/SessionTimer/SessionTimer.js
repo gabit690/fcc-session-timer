@@ -4,7 +4,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './SessionTimer.css';
 
-
 import TimerDisplay from './TimerDisplay/TimerDisplay';
 import TimerPad from './TimerPad/TimerPad';
 import TimerConfig from './TimerConfig/TimerConfig';
@@ -14,11 +13,12 @@ class SessionTimer extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      timerActive: false,//Arranca en false
       sessionType: 'Session',
-      displayTime: "25:00",
+      sessionMinutes: 25,
+      sessionSeconds: 0,
       breakLength: 5,
       sessionLength: 25,
-      timerActive: true//Arranca en false
     };
     this.handlePlay = this.handlePlay.bind(this);
     this.handlePause = this.handlePause.bind(this);
@@ -49,12 +49,13 @@ class SessionTimer extends Component {
   
   render() {
     return (
-      <div id="timer-container" className="container-fluid w-75 border">
-        <div className="row bg-info">
-          <div className="col-sm-8 bg-danger">
+      <div id="timer-container" className="container-fluid w-75">
+        <div className="row">
+          <div className="col-md-7">
             <TimerDisplay 
               title={this.state.sessionType} 
-              time={this.state.displayTime}
+              minutes={this.state.sessionMinutes}
+              seconds={this.state.sessionSeconds}
             />
             <TimerPad 
               active={this.state.timerActive}
@@ -81,50 +82,62 @@ class SessionTimer extends Component {
               }
             />
           </div>
-          {/* <div className="col">
-            <TimerConfig 
-              active={this.state.timerActive}
-              label={"break-label"}
-              title={"Break Length"}
-              incrementButton = {
-                {
-                  id: "break-increment",
-                  action: this.handleIncrement,
-                  icon: "Arr"
-                }
-              }
-              decrementButton = {
-                {
-                  id: "break-decrement",
-                  action: this.handleDecrement,
-                  icon: "Ab"
-                }
-              }
-              configValue={this.state.breakLength}
-            />
+          <div className="col-md-5 rounded bg-secondary">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="break-tab" data-bs-toggle="tab" data-bs-target="#break" type="button" role="tab" aria-controls="break" aria-selected="true">Break <i class="bi bi-gear-fill"></i></button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="session-tab" data-bs-toggle="tab" data-bs-target="#session" type="button" role="tab" aria-controls="session" aria-selected="false">Session <i class="bi bi-gear-fill"></i></button>
+              </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="break" role="tabpanel" aria-labelledby="break-tab">
+                <TimerConfig 
+                  active={this.state.timerActive}
+                  label={"break-label"}
+                  title={"Break Length"}
+                  incrementButton = {
+                    {
+                      id: "break-increment",
+                      action: this.handleIncrement,
+                      icon: <i class="bi bi-arrow-up"></i>
+                    }
+                  }
+                  decrementButton = {
+                    {
+                      id: "break-decrement",
+                      action: this.handleDecrement,
+                      icon: <i class="bi bi-arrow-down"></i>
+                    }
+                  }
+                  configValue={this.state.breakLength}
+                />
+              </div>
+              <div class="tab-pane fade" id="session" role="tabpanel" aria-labelledby="session-tab">
+                <TimerConfig 
+                  active={this.state.timerActive}
+                  label={"session-label"}
+                  title={"Session Length"}
+                  incrementButton = {
+                    {
+                      id: "session-increment",
+                      action: this.handleIncrement,
+                      icon: <i class="bi bi-arrow-up"></i>
+                    }
+                  }
+                  decrementButton = {
+                    {
+                      id: "session-decrement",
+                      action: this.handleDecrement,
+                      icon: <i class="bi bi-arrow-down"></i>
+                    }
+                  }
+                  configValue={this.state.sessionLength}
+                />
+              </div>
+            </div>
           </div>
-          <div className="col">
-            <TimerConfig 
-              active={this.state.timerActive}
-              label={"session-label"}
-              title={"Session Length"}
-              incrementButton = {
-                {
-                  id: "session-increment",
-                  action: this.handleIncrement,
-                  icon: "Arr"
-                }
-              }
-              decrementButton = {
-                {
-                  id: "session-decrement",
-                  action: this.handleDecrement,
-                  icon: "Ab"
-                }
-              }
-              configValue={this.state.sessionLength}
-            />
-          </div> */}
         </div>
       </div>
     );

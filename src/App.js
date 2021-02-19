@@ -10,10 +10,9 @@ function App() {
     <div className="
      App
      container-fluid
-     px-0
-     bg-secondary"
+     px-0"
     >
-      <h1 className="text-center pt-3">25 + 5 Clock</h1>
+      <h1 className="text-center pt-3 mb-5">25 + 5 Clock</h1>
       <SessionTimer />
       <Contact />
     </div>

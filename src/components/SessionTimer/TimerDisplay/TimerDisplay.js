@@ -4,8 +4,11 @@ import './TimerDisplay.css';
 
 const TimerDisplay = (props) => {
   
-  const {title, time} = props;
-  
+  const {title, minutes, seconds} = props;
+  const minutesDisplay = (minutes <= 9 ? "0":"") + minutes;
+  const secondsDisplay = (seconds <= 9 ? "0":"") + seconds;
+  const time = minutesDisplay + ":" + secondsDisplay;
+
   return (
     <div 
       id="display-container" 
