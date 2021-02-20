@@ -1,6 +1,7 @@
 import actions from './Actions.js';
 
-function changeDisplay(title, minutes, seconds) {
+// DISPLAY CREATORS
+function changeDisplay(type, minutes, seconds) {
   return {
     type: actions.CHANGE_DISPLAY,
     display: {
@@ -11,6 +12,7 @@ function changeDisplay(title, minutes, seconds) {
   };
 }
 
+// TIMER CREATORS
 function playTimer(timerId) {
   return {
     type: actions.PLAY,
@@ -26,6 +28,7 @@ function resetTimer() {
   type: actions.RESET
 }
 
+// CONFIG CREATORS
 function incrementBreakLength() {
   type: actions.INCREMENT_BREAK_LENGTH
 }
