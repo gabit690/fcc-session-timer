@@ -4,14 +4,13 @@ import './Button.css';
 
 const Button = (props) => {
 
-  let {id, type, action, value, disabled} = props;
+  let {id, type, action, value} = props;
 
   return (
     <button 
       id={id} 
       className={type}
       onClick={action}
-      disabled={disabled}
     >
       {value}
     </button>

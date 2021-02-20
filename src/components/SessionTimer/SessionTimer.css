@@ -3,4 +3,12 @@
   max-width: 700px;
 }
 
+button i.bi {
+  position: relative;
+}
+
+button i::before {
+  transform: translateY(-3px);
+}
+
 /*# sourceMappingURL=SessionTimer.css.map */

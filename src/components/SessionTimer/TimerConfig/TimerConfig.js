@@ -17,7 +17,7 @@ const TimerConfig = (props) => {
           value={props.incrementButton.icon} 
           disabled={props.active} 
         />
-        <div className="d-flex align-items-center bg-light border border-dark rounded-circle px-2 mx-3 fs-1">
+        <div id={props.type} className="value-container justify-content-center d-flex align-items-center bg-light border border-dark rounded-circle px-2 mx-3 fs-1">
           {props.configValue}
         </div>
         <Button 

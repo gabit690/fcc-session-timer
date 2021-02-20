@@ -7,31 +7,22 @@ import Button from '../../commons/Button/Button';
 
 const TimerPad = (props) => {
 
-  const { active, playButton, pauseButton, resetButton } = props;
+  const { playButton, resetButton } = props;
 
   return (
     <div className="container-fluid">
-      <div id="pad-buttons" className="text-center rounded-pill bg-info">
+      <div id="pad-buttons" className="text-center border py-1 rounded-pill bg-secondary shadow">
         <Button 
           id={playButton.id}
           type={"btn btn-dark" + " button-control"} 
           action={playButton.action} 
-          value={playButton.icon} 
-          disabled={!active} 
-        />
-        <Button 
-          id={pauseButton.id}
-          type={"btn btn-dark" + " button-control"}  
-          action={pauseButton.action} 
-          value={pauseButton.icon} 
-          disabled={!active} 
+          value={playButton.icon}
         />
         <Button 
           id={resetButton.id} 
           type={"btn btn-dark" + " button-control"} 
           action={resetButton.action} 
-          value={resetButton.icon} 
-          disabled={!active} 
+          value={resetButton.icon}
         />
       </div>
     </div>
