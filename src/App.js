@@ -20,7 +20,3 @@ function App() {
 }
 
 export default App;
-
-// https://codepen.io/freeCodeCamp/full/XpKrrW
-// https://raw.githubusercontent.com/freeCodeCamp/cdn/master/build/testable-projects-fcc/audio/BeepSound.wav
-
