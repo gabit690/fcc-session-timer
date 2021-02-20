@@ -1,11 +1,11 @@
 import actions from './Actions.js';
 
 // DISPLAY CREATORS
-function changeDisplay(type, minutes, seconds) {
+const changeDisplay = (type, minutes, seconds) => {
   return {
     type: actions.CHANGE_DISPLAY,
     display: {
-      title,
+      type,
       minutes,
       seconds
     }
@@ -13,39 +13,51 @@ function changeDisplay(type, minutes, seconds) {
 }
 
 // TIMER CREATORS
-function playTimer(timerId) {
+const playTimer = (timerId) => {
   return {
     type: actions.PLAY,
     timerId
-  }
+  };
 }
 
-function pauseTimer() {
-  type: actions.PAUSE
+const pauseTimer = () => {
+  return {
+    type: actions.PAUSE
+  };
 }
 
-function resetTimer() {
-  type: actions.RESET
+const resetTimer = () => {
+  return {
+    type: actions.RESET
+  };
 }
 
 // CONFIG CREATORS
-function incrementBreakLength() {
-  type: actions.INCREMENT_BREAK_LENGTH
+const incrementBreakLength = () => {
+  return {
+    type: actions.INCREMENT_BREAK_LENGTH
+  };
 }
 
-function decrementBreakLength() {
-  type: actions.DECREMENT_BREAK_LENGTH
+const decrementBreakLength = () => {
+  return {
+    type: actions.DECREMENT_BREAK_LENGTH
+  };
 }
 
-function incrementSessionLength() {
-  type: actions.INCREMENT_SESSION_LENGTH
+const incrementSessionLength = () => {
+  return {
+    type: actions.INCREMENT_SESSION_LENGTH
+  };
 }
 
-function decrementSessionLength() {
-  type: actions.DECREMENT_SESSION_LENGTH
+const decrementSessionLength = () => {
+  return {
+    type: actions.DECREMENT_SESSION_LENGTH
+  };
 }
 
-const creators = {
+export {
   changeDisplay,
   playTimer,
   pauseTimer,
@@ -54,6 +66,4 @@ const creators = {
   decrementBreakLength,
   incrementSessionLength,
   decrementSessionLength
-}
-
-export default creators;
+};

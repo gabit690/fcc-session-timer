@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import actions from "./Actions";
+import actions from "./Actions.js";
 
 // INITIAL STATE
 
