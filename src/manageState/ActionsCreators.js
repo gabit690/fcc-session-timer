@@ -12,23 +12,23 @@ const changeDisplay = (type, minutes, seconds) => {
   };
 }
 
+const resetDisplay = () => {
+  return {
+    type: actions.RESET_DISPLAY,
+  };
+}
+
 // TIMER CREATORS
 const playTimer = (timerId) => {
   return {
-    type: actions.PLAY,
+    type: actions.PLAY_TIMER,
     timerId
   };
 }
 
 const pauseTimer = () => {
   return {
-    type: actions.PAUSE
-  };
-}
-
-const resetTimer = () => {
-  return {
-    type: actions.RESET
+    type: actions.PAUSE_TIMER
   };
 }
 
@@ -57,13 +57,20 @@ const decrementSessionLength = () => {
   };
 }
 
+const resetConfig = () => {
+  return {
+    type: actions.RESET_CONFIG
+  };
+}
+
 export {
   changeDisplay,
+  resetDisplay,
   playTimer,
   pauseTimer,
-  resetTimer,
   incrementBreakLength,
   decrementBreakLength,
   incrementSessionLength,
-  decrementSessionLength
+  decrementSessionLength,
+  resetConfig
 };

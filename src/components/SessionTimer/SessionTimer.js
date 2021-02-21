@@ -64,13 +64,15 @@ class SessionTimer extends Component {
     if (this.props.timerActive) {
       clearInterval(this.props.timerCoutdown);
     }
-    this.props.resetTimer();
+    this.props.pauseTimer();
+    this.props.resetDisplay();
+    this.props.resetConfig();
   }
 
   handleIncrementBreak() {
     if (!this.props.timerActive && this.props.breakLength < 60) {
       if (/Break/.test(this.props.sessionType)) {
-        this.props.changeDisplay('Break', this.props.sessionMinutes + 1, 0);
+        this.props.changeDisplay('Break', this.props.breakLength + 1, 0);
       }
       this.props.incrementBreakLength();
     }
@@ -79,7 +81,7 @@ class SessionTimer extends Component {
   handleDecrementBreak() {
     if (!this.props.timerActive && this.props.breakLength > 1) {
       if (/Break/.test(this.props.sessionType)) {
-        this.props.changeDisplay('Break', this.props.sessionMinutes - 1, 0);
+        this.props.changeDisplay('Break', this.props.breakLength - 1, 0);
       }
       this.props.decrementBreakLength();
     }
@@ -88,7 +90,7 @@ class SessionTimer extends Component {
   handleIncrementSession() {
     if (!this.props.timerActive && this.props.sessionLength < 60) {
       if (/Session/.test(this.props.sessionType)) {
-        this.props.changeDisplay('Session', this.props.sessionMinutes + 1, 0);
+        this.props.changeDisplay('Session', this.props.sessionLength + 1, 0);
       } 
       this.props.incrementSessionLength();
     }
@@ -97,7 +99,7 @@ class SessionTimer extends Component {
   handleDecrementSession() {
     if (!this.props.timerActive && this.props.sessionLength > 1) {
       if (/Session/.test(this.props.sessionType)) {
-        this.props.changeDisplay('Session', this.props.sessionMinutes - 1, 0);
+        this.props.changeDisplay('Session', this.props.sessionLength - 1, 0);
       } 
       this.props.decrementSessionLength();
     }

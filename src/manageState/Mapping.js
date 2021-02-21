@@ -1,26 +1,27 @@
-import { changeDisplay, playTimer, pauseTimer, resetTimer, incrementBreakLength, decrementBreakLength, incrementSessionLength, decrementSessionLength } from './ActionsCreators.js';
+import { changeDisplay, resetDisplay, playTimer, pauseTimer, incrementBreakLength, decrementBreakLength, incrementSessionLength, decrementSessionLength, resetConfig } from './ActionsCreators.js';
 
 function mapStateToProps(state) {
   return {
-    timerCoutdown: state.timerCoutdown,
-    timerActive: state.timerActive,
-    sessionType: state.sessionType,
-    sessionMinutes: state.sessionMinutes,
-    sessionSeconds: state.sessionSeconds,
-    breakLength: state.breakLength,
-    sessionLength: state.sessionLength
+    timerCoutdown: state.timer.timerCoutdown,
+    timerActive: state.timer.timerActive,
+    sessionType: state.display.sessionType,
+    sessionMinutes: state.display.sessionMinutes,
+    sessionSeconds: state.display.sessionSeconds,
+    breakLength: state.config.breakLength,
+    sessionLength: state.config.sessionLength
   };
 }
 
 const mapDispatchToProps = {
-  changeDisplay, 
+  changeDisplay,
+  resetDisplay,
   playTimer, 
   pauseTimer, 
-  resetTimer, 
   incrementBreakLength, 
   decrementBreakLength, 
   incrementSessionLength, 
-  decrementSessionLength
+  decrementSessionLength,
+  resetConfig
 }
 
 export { mapStateToProps, mapDispatchToProps };
