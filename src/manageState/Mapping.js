@@ -1,4 +1,4 @@
-export { changeDisplay, playTimer, pauseTimer, resetTimer, incrementBreakLength, decrementBreakLength, incrementSessionLength, decrementSessionLength } from './ActionsCreators.js';
+import { changeDisplay, playTimer, pauseTimer, resetTimer, incrementBreakLength, decrementBreakLength, incrementSessionLength, decrementSessionLength } from './ActionsCreators.js';
 
 function mapStateToProps(state) {
   return {

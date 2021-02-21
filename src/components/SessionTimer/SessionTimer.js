@@ -1,23 +1,21 @@
 import { Component } from "react";
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './SessionTimer.css';
-
 import TimerDisplay from './TimerDisplay/TimerDisplay';
 import TimerPad from './TimerPad/TimerPad';
 import TimerConfig from './TimerConfig/TimerConfig';
+import { connect } from 'react-redux';
+import { mapStateToProps, mapDispatchToProps } from '../../manageState/Mapping.js';
 
 function getTimerValues(minutes, seconds) {
   let newValue = [minutes, seconds];
-  
   if (seconds > 0) {
     newValue[1] = seconds - 1;
   } else if (minutes >= 0) {
     newValue[0] = minutes - 1;
     newValue[1] = 59;
   }
-
   return newValue;
 }
 
@@ -25,147 +23,103 @@ class SessionTimer extends Component {
   
   constructor(props) {
     super(props);
-    this.state = {
-      timerCoutdown: 0,
-      timerActive: false,
-      sessionType: 'Session',
-      sessionMinutes: 25,
-      sessionSeconds: 0,
-      breakLength: 5,
-      sessionLength: 25
-    };
     this.handlePlay = this.handlePlay.bind(this);
     this.handleReset = this.handleReset.bind(this);
-    this.incrementBreakLength = this.incrementBreakLength.bind(this);
-    this.decrementBreakLength = this.decrementBreakLength.bind(this);
-    this.incrementSessionLength = this.incrementSessionLength.bind(this);
-    this.decrementSessionLength = this.decrementSessionLength.bind(this);
+    this.handleIncrementBreak = this.handleIncrementBreak.bind(this);
+    this.handleDecrementBreak = this.handleDecrementBreak.bind(this);
+    this.handleIncrementSession = this.handleIncrementSession.bind(this);
+    this.handleDecrementSession = this.handleDecrementSession.bind(this);
   }
 
   handlePlay() {
-
-    if (this.state.timerActive) {
-      clearInterval(this.state.timerCoutdown);
-      this.setState({timerActive: false});
+    if (this.props.timerActive) {
+      clearInterval(this.props.timerCoutdown);
+      this.props.pauseTimer();
     } else {
       let timerId = setInterval(() => {
-        let time = getTimerValues(this.state.sessionMinutes, this.state.sessionSeconds);
-
+        let time = getTimerValues(this.props.sessionMinutes, this.props.sessionSeconds);
         if (time[0] == 0 && time[1] == 0){
           document.getElementById("beep").play();
         }
-
         if (time[0] < 0) {
-          this.setState({
-            sessionType: (/Session/.test(this.state.sessionType)) ? 'Break': 'Session',
-            sessionMinutes: (/Session/.test(this.state.sessionType)) ? this.state.breakLength : this.state.sessionLength, 
-            sessionSeconds: 0
-          });
+          let type = (/Session/.test(this.props.sessionType)) ? 'Break': 'Session';
+          let minutes = (/Session/.test(this.props.sessionType)) ? this.props.breakLength : this.props.sessionLength;
+          let seconds = 0;
+          this.props.changeDisplay(type, minutes, seconds);
         } else {
-          this.setState({
-            sessionMinutes: time[0], 
-            sessionSeconds: time[1]
-          });  
+          this.props.changeDisplay(this.props.sessionType, time[0], time[1]);
         }
-
       }, 1000);
-      this.setState({timerCoutdown: timerId, timerActive: true});
+      this.props.playTimer(timerId);
     }
-
   }
 
   handleReset() {
 
-    document.getElementById("beep").pause();
+    if (document.getElementById("beep").currentTime > 0) {
+      document.getElementById("beep").pause();
+    }
     document.getElementById("beep").load();
-    if (this.state.timerActive) {
-      clearInterval(this.state.timerCoutdown);
+
+    if (this.props.timerActive) {
+      clearInterval(this.props.timerCoutdown);
     }
-
-    this.setState({
-      timerCoutdown: 0,
-      timerActive: false,
-      sessionType: 'Session',
-      sessionMinutes: 25,
-      sessionSeconds: 0,
-      breakLength: 5,
-      sessionLength: 25
-    });
-
+    this.props.resetTimer();
   }
 
-  incrementBreakLength() {
-    if (!this.state.timerActive && this.state.breakLength < 60) {
-      if (/Break/.test(this.state.sessionType)) {
-        this.setState({
-          sessionMinutes: this.state.sessionMinutes + 1,
-          breakLength: this.state.breakLength + 1
-        });
-      } else {
-        this.setState({breakLength: this.state.breakLength + 1});
+  handleIncrementBreak() {
+    if (!this.props.timerActive && this.props.breakLength < 60) {
+      if (/Break/.test(this.props.sessionType)) {
+        this.props.changeDisplay('Break', this.props.sessionMinutes + 1, 0);
       }
+      this.props.incrementBreakLength();
     }
   }
 
-  decrementBreakLength() {
-    if (!this.state.timerActive && this.state.breakLength > 1) {
-      if (/Break/.test(this.state.sessionType)) {
-        this.setState({
-          sessionMinutes: this.state.sessionMinutes - 1,
-          breakLength: this.state.breakLength - 1
-        });
-      } else {
-        this.setState({breakLength: this.state.breakLength - 1});
+  handleDecrementBreak() {
+    if (!this.props.timerActive && this.props.breakLength > 1) {
+      if (/Break/.test(this.props.sessionType)) {
+        this.props.changeDisplay('Break', this.props.sessionMinutes - 1, 0);
       }
+      this.props.decrementBreakLength();
     }
   }
 
-  incrementSessionLength() {
-    if (!this.state.timerActive && this.state.sessionLength < 60) {
-      if (/Session/.test(this.state.sessionType)) {
-        this.setState({
-          sessionMinutes: this.state.sessionMinutes + 1,
-          sessionLength: this.state.sessionLength + 1
-        });
-      } else {
-        this.setState({
-          sessionLength: this.state.sessionLength + 1
-        });
-      }
+  handleIncrementSession() {
+    if (!this.props.timerActive && this.props.sessionLength < 60) {
+      if (/Session/.test(this.props.sessionType)) {
+        this.props.changeDisplay('Session', this.props.sessionMinutes + 1, 0);
+      } 
+      this.props.incrementSessionLength();
     }
   }
 
-  decrementSessionLength() {
-    if (!this.state.timerActive && this.state.sessionLength > 1) {
-      if (/Session/.test(this.state.sessionType)) {
-        this.setState({
-          sessionMinutes: this.state.sessionMinutes - 1,
-          sessionLength: this.state.sessionLength - 1
-        });
-      } else {
-        this.setState({
-          sessionLength: this.state.sessionLength - 1
-        });
-      }
+  handleDecrementSession() {
+    if (!this.props.timerActive && this.props.sessionLength > 1) {
+      if (/Session/.test(this.props.sessionType)) {
+        this.props.changeDisplay('Session', this.props.sessionMinutes - 1, 0);
+      } 
+      this.props.decrementSessionLength();
     }
   }
   
   render() {
+
     return (
       <div id="timer-container" className="container-fluid w-75">
         <div className="row">
           <div className="col-md-7">
             <TimerDisplay 
-              title={this.state.sessionType} 
-              minutes={this.state.sessionMinutes}
-              seconds={this.state.sessionSeconds}
+              title={this.props.sessionType} 
+              minutes={this.props.sessionMinutes}
+              seconds={this.props.sessionSeconds}
             />
             <TimerPad 
               playButton={
                 {
                   id: "start_stop",
                   action: this.handlePlay,
-                  icon: (this.state.timerActive) ? <i className="bi bi-pause-fill"></i> : <i className="bi bi-play-fill"></i>
+                  icon: (this.props.timerActive) ? <i className="bi bi-pause-fill"></i> : <i className="bi bi-play-fill"></i>
                 }
               }
               resetButton={
@@ -189,48 +143,48 @@ class SessionTimer extends Component {
             <div className="tab-content mt-md-4" id="myTabContent">
               <div className="tab-pane fade show active" id="break" role="tabpanel" aria-labelledby="break-tab">
                 <TimerConfig 
-                  active={this.state.timerActive}
+                  active={this.props.timerActive}
                   label={"break-label"}
                   type={"break-length"}
                   title={"Break Length"}
                   incrementButton = {
                     {
                       id: "break-increment",
-                      action:  this.incrementBreakLength,
+                      action:  this.handleIncrementBreak,
                       icon: <i className="bi bi-arrow-up"></i>
                     }
                   }
                   decrementButton = {
                     {
                       id: "break-decrement",
-                      action: this.decrementBreakLength,
+                      action: this.handleDecrementBreak,
                       icon: <i className="bi bi-arrow-down"></i>
                     }
                   }
-                  configValue={this.state.breakLength}
+                  configValue={this.props.breakLength}
                 />
               </div>
               <div className="tab-pane fade" id="session" role="tabpanel" aria-labelledby="session-tab">
                 <TimerConfig 
-                  active={this.state.timerActive}
+                  active={this.props.timerActive}
                   label={"session-label"}
                   type={"session-length"}
                   title={"Session Length"}
                   incrementButton = {
                     {
                       id: "session-increment",
-                      action: this.incrementSessionLength,
+                      action: this.handleIncrementSession,
                       icon: <i className="bi bi-arrow-up"></i>
                     }
                   }
                   decrementButton = {
                     {
                       id: "session-decrement",
-                      action: this.decrementSessionLength,
+                      action: this.handleDecrementSession,
                       icon: <i className="bi bi-arrow-down"></i>
                     }
                   }
-                  configValue={this.state.sessionLength}
+                  configValue={this.props.sessionLength}
                 />
               </div>
             </div>
@@ -241,4 +195,4 @@ class SessionTimer extends Component {
   }
 }
 
-export default SessionTimer;
+export default connect(mapStateToProps, mapDispatchToProps) (SessionTimer);

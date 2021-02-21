@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './App.css';
 
-import SessionTimer from './components/SessionTimer/SessionTimer';
+import SessionTimerWrapper from './manageState/SessionTimerWrapper';
 import Contact from './components/Contact/Contact';
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
      px-0"
     >
       <h1 className="text-center pt-3 mb-4">25 + 5 Clock</h1>
-      <SessionTimer />
+      {SessionTimerWrapper}
       <Contact />
     </div>
   );
