@@ -20,5 +20,3 @@ function App() {
 }
 
 export default App;
-
-// https://codepen.io/freeCodeCamp/full/XpKrrW

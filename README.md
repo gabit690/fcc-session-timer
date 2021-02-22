@@ -20,8 +20,8 @@ Podés ver el trabajo terminado [acá][web].
 
 **Fecha de inicio:** 17/02/2021  
 
-**Fecha de finalización:** ??/02/2021
+**Fecha de finalización:** 22/02/2021
 
 [FCC]: https://www.freecodecamp.org/
 
-[web]: ???????
+[web]: https://fcc-session-timer.netlify.app/
